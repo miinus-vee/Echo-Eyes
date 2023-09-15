@@ -27,7 +27,10 @@ Step2: Install the following libraries using the command provided. <br><br>
 
 
 
-### DEMO video
+### DEMO
+
+![image](https://github.com/miinus-vee/THE-INNOV8ORS/assets/91024452/773078e4-786a-4b49-903c-2bc6c583a88b)
+
 
 https://github.com/miinus-vee/THE-INNOV8ORS/assets/91024452/d736dcea-a5a8-4f9f-b7da-1469f9c39a57
 
