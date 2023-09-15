@@ -27,9 +27,18 @@ Step2: Install the following libraries using the command provided. <br><br>
 
 
 
-## DEMO video
+### DEMO video
 
 https://github.com/miinus-vee/THE-INNOV8ORS/assets/91024452/d736dcea-a5a8-4f9f-b7da-1469f9c39a57
 
+
+
+### Documentation
+
+[Document Echo Eyes.pdf](https://github.com/miinus-vee/THE-INNOV8ORS/files/12619120/Document.Echo.Eyes.pdf)
+
+### Team Members:
+
+![image](https://github.com/miinus-vee/THE-INNOV8ORS/assets/91024452/9ad7745b-2055-426e-bada-cf1b4bbe948f)
 
 
