@@ -22,3 +22,14 @@ Step2: Install the following libraries using the command provided. <br><br>
 `pip install pytesseract`<br><br>
 `pip install wxpython`<br><br>
 `pip install pyttsx3`<br><br>
+
+
+
+
+
+## DEMO video
+
+https://github.com/miinus-vee/THE-INNOV8ORS/assets/91024452/d736dcea-a5a8-4f9f-b7da-1469f9c39a57
+
+
+
