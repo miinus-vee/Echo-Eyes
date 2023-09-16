@@ -36,8 +36,9 @@ Step2: Install the following libraries using the command provided. <br><br>
 
 
 ### Documentation
+[Echo Eyes_ppt.pdf](https://github.com/miinus-vee/THE-INNOV8ORS/files/12640435/Echo.Eyes_ppt.pdf)
 
-[Document Echo Eyes.pdf](https://github.com/miinus-vee/THE-INNOV8ORS/files/12619120/Document.Echo.Eyes.pdf)
+
 
 ### Team Members:
 
