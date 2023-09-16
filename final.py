@@ -4,9 +4,7 @@ import pytesseract
 import pyttsx3
 import pyautogui
 import time
-from PIL import Image
 import sys
-import cv2
 
 # Initialize text-to-speech engine
 engine = pyttsx3.init()
