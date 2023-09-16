@@ -183,9 +183,8 @@ def take_screenshot():
     region = (x, y - 20, x + 250, y + 20)
     region_image = screenshot.crop(region)
     region_image_gray = region_image.convert("L")
-    extracted_text = pytesseract.image_to_string(
-        region_image_gray, lang=current_language
-    )
+    region_image_gray = region_image.convert("L")
+    extracted_text = pytesseract.image_to_string(region_image_gray, lang="eng+hin")
 
     sys.stdout.reconfigure(encoding="utf-8")
     return extracted_text
