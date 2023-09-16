@@ -29,10 +29,9 @@ Step2: Install the following libraries using the command provided. <br><br>
 
 ### DEMO
 
-![image](https://github.com/miinus-vee/THE-INNOV8ORS/assets/91024452/773078e4-786a-4b49-903c-2bc6c583a88b)
+![WhatsApp Image 2023-09-16 at 14 35 00](https://github.com/miinus-vee/THE-INNOV8ORS/assets/91024452/4add9478-f9b6-4899-a324-fc1426f676a3)
 
-
-https://github.com/miinus-vee/THE-INNOV8ORS/assets/91024452/d736dcea-a5a8-4f9f-b7da-1469f9c39a57
+![WhatsApp Image 2023-09-16 at 14 59 50](https://github.com/miinus-vee/THE-INNOV8ORS/assets/91024452/b8d8fca6-d521-4ff8-939a-22ee37f1c2d3)
 
 
 
