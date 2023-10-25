@@ -34,9 +34,11 @@ Step2: Install the following libraries using the command provided. <br><br>
 ![WhatsApp Image 2023-09-16 at 14 59 50](https://github.com/miinus-vee/THE-INNOV8ORS/assets/91024452/b8d8fca6-d521-4ff8-939a-22ee37f1c2d3)
 
 
-
+<!--- 
 ### Documentation
 [Echo Eyes_ppt.pdf](https://github.com/miinus-vee/THE-INNOV8ORS/files/12640435/Echo.Eyes_ppt.pdf)
+
+--->
 
 
 
