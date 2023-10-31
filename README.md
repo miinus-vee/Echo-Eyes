@@ -3,10 +3,8 @@
 
 ![logo - Copy](https://github.com/miinus-vee/THE-INNOV8ORS/assets/91024452/2e2281bd-655d-4cc1-9cad-c98056fc4022)
 
-# Echo-Eyes
+## Echo-Eyes
 
-
-## ~ THE INNOV∞ORS
 
 We tried to create a gateway for the visually impaired to independence, knowledge, and unlimited potential for the visually impaired. <br>
 Our project will remove visual barriers by enabling users to consume educational material being presented by screen sharing. <br>
