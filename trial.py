@@ -319,3 +319,49 @@ frame = EchoEYESFrame(None, -1, "EchoEYES", on_launch, on_quit, on_volume_change
 frame.Show()
 app.MainLoop()
 
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+python
+
+
+
+import pytesseract
+import pyautogui
+import numpy as np
+from PIL import Image
+
+def take_screenshot():
+    # Capture a screenshot of the entire screen
+    screenshot = pyautogui.screenshot()
+    cursor_position = pyautogui.position()
+
+    # Convert the screenshot to a numpy array for processing
+    screenshot_np = np.array(screenshot)
+
+    # Use pytesseract to get the bounding boxes of the text
+    data = pytesseract.image_to_data(screenshot, lang="eng+hin", output_type=pytesseract.Output.DICT)
+
+    # Initialize variables to find the bounding box of the text
+    x_min, y_min, x_max, y_max = float('inf'), float('inf'), float('-inf'), float('-inf')
+
+    # Loop through the detected text boxes
+    for i in range(len(data['text'])):
+        if int(data['conf'][i]) > 60:  # Confidence threshold
+            (x, y, w, h) = (data['left'][i], data['top'][i], data['width'][i], data['height'][i])
+            x_min = min(x_min, x)
+            y_min = min(y_min, y)
+            x_max = max(x_max, x + w)
+            y_max = max(y_max, y + h)
+
+    # If no text was found, return empty string
+    if x_min == float('inf'):
+        return "", screenshot
+
+    # Crop the region of interest based on the detected text bounding box
+    region_image = screenshot.crop((x_min, y_min, x_max, y_max))
+    region_image_gray = region_image.convert("L")
+    extracted_text = pytesseract.image_to_string(region_image_gray, lang="eng+hin")
+
+    sys.stdout.reconfigure(encoding="utf-8")
+    return extracted_text, region_image
