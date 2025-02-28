@@ -1,34 +1,11 @@
+GUI.py
+
 import wx
-import threading
-import pytesseract
 import pyttsx3
-import pyautogui
-import time
-import sys
-from PIL import Image
-import numpy as np
 
-# Initialize text-to-speech engine
-engine = pyttsx3.init()
-voices = engine.getProperty("voices")
-volume = 0.5  # Default volume
-rate = 200  # Default speech rate (words per minute)
-current_voice = voices[0]  # Default voice
-current_language = "eng"  # Default language (English)
-
-# Store the previous cursor position
-previous_cursor_position = pyautogui.position()
-
-# Variable to control the main loop
-running = False
-
-# Mode selection: 'cursor' for cursor reading, 'summary' for summarization
-mode = 'cursor'
-
-
-class MyFrame(wx.Frame):
-    def __init__(self, parent, id, title):
-        wx.Frame.__init__(self, parent, id, title, size=(1300, 1000))
+class EchoEYESFrame(wx.Frame):
+    def __init__(self, parent, id, title, on_launch, on_quit, on_volume_change, on_rate_change, on_voice_select, on_language_select, on_mode_select):
+        wx.Frame.__init__(self, parent, id, title, size=(800, 600))
 
         # Set the favicon (replace 'Logo.png' with the actual path)
         icon = wx.Icon("Logo.png", wx.BITMAP_TYPE_PNG)
@@ -39,8 +16,8 @@ class MyFrame(wx.Frame):
         self.panel1 = wx.Panel(notebook)
         self.panel2 = wx.Panel(notebook)
 
-        notebook.AddPage(self.panel2, "Settings")
         notebook.AddPage(self.panel1, "Instructions")
+        notebook.AddPage(self.panel2, "Settings")
 
         # Instructions tab
         instructions_text = (
@@ -96,14 +73,14 @@ class MyFrame(wx.Frame):
         # Language selection
         language_label = wx.StaticText(panel, label="Select Language:")
         self.language_dropdown = wx.Choice(panel, choices=["English", "Hindi"])
-        self.Bind(wx.EVT_CHOICE, self.on_language_select, self.language_dropdown)
+        self.Bind(wx.EVT_CHOICE, on_language_select, self.language_dropdown)
         vbox.Add(language_label, flag=wx.ALIGN_CENTER | wx.ALL, border=10)
         vbox.Add(self.language_dropdown, flag=wx.EXPAND | wx.ALL, border=10)
 
         # Mode selection
         mode_label = wx.StaticText(panel, label="Select Mode:")
         self.mode_dropdown = wx.Choice(panel, choices=["Cursor Reading", "Summarization"])
-        self.Bind(wx.EVT_CHOICE, self.on_mode_select, self.mode_dropdown)
+        self.Bind(wx.EVT_CHOICE, on_mode_select, self.mode_dropdown)
         vbox.Add(mode_label, flag=wx.ALIGN_CENTER | wx.ALL, border=10)
         vbox.Add(self.mode_dropdown, flag=wx.EXPAND | wx.ALL, border=10)
 
@@ -114,82 +91,82 @@ class MyFrame(wx.Frame):
         vbox.Add(launch_button, flag=wx.ALIGN_CENTER | wx.ALL, border=10)
         vbox.Add(quit_button, flag=wx.ALIGN_CENTER | wx.ALL, border=10)
 
-        self.Bind(wx.EVT_BUTTON, self.on_launch, launch_button)
-        self.Bind(wx.EVT_BUTTON, self.on_quit, quit_button)
+        self.Bind(wx.EVT_BUTTON, on_launch, launch_button)
+        self.Bind(wx.EVT_BUTTON, on_quit, quit_button)
 
         # Volume slider
         volume_label = wx.StaticText(panel, label="Volume:")
         self.volume_slider = wx.Slider(
             panel,
-            value=int(volume * 100),
+            value=50,
             minValue=0,
             maxValue=100,
             style=wx.SL_HORIZONTAL,
         )
-        self.Bind(wx.EVT_SLIDER, self.on_volume_change, self.volume_slider)
+        self.Bind(wx.EVT_SLIDER, on_volume_change, self.volume_slider)
         vbox.Add(volume_label, flag=wx.ALIGN_CENTER | wx.ALL, border=10)
         vbox.Add(self.volume_slider, flag=wx.EXPAND | wx.ALL, border=10)
 
         # Rate slider
         rate_label = wx.StaticText(panel, label="Speech Rate:")
         self.rate_slider = wx.Slider(
-            panel, value=rate, minValue=100, maxValue=400, style=wx.SL_HORIZONTAL
+            panel, value=200, minValue=100, maxValue=400, style=wx.SL_HORIZONTAL
         )
-        self.Bind(wx.EVT_SLIDER, self.on_rate_change, self.rate_slider)
+        self.Bind(wx.EVT_SLIDER, on_rate_change, self.rate_slider)
         vbox.Add(rate_label, flag=wx.ALIGN_CENTER | wx.ALL, border=10)
         vbox.Add(self.rate_slider, flag=wx.EXPAND | wx.ALL, border=10)
 
         # Voice selection
         voice_label = wx.StaticText(panel, label="Select Voice:")
+        engine = pyttsx3.init()
+        voices = engine.getProperty("voices")
         voice_choices = [voice.name for voice in voices]
         self.voice_dropdown = wx.ComboBox(
             panel, choices=voice_choices, style=wx.CB_READONLY
         )
-        self.Bind(wx.EVT_COMBOBOX, self.on_voice_select, self.voice_dropdown)
+        self.Bind(wx.EVT_COMBOBOX, on_voice_select, self.voice_dropdown)
         vbox.Add(voice_label, flag=wx.ALIGN_CENTER | wx.ALL, border=10)
         vbox.Add(self.voice_dropdown, flag=wx.EXPAND | wx.ALL, border=10)
 
         panel.SetSizer(vbox)
 
-    def on_launch(self, event):
-        start_main_loop()
-        self.Iconize(True)
 
-    def on_quit(self, event):
-        stop_main_loop()
-        wx.CallAfter(self.Close)
 
-    def on_volume_change(self, event):
-        global volume
-        volume = self.volume_slider.GetValue() / 100
 
-    def on_rate_change(self, event):
-        global rate
-        rate = self.rate_slider.GetValue()
 
-    def on_voice_select(self, event):
-        global current_voice
-        selected_voice_name = self.voice_dropdown.GetValue()
-        for voice in voices:
-            if voice.name == selected_voice_name:
-                current_voice = voice
-                break
 
-    def on_language_select(self, event):
-        global current_language
-        selected_language = self.language_dropdown.GetStringSelection()
-        if selected_language == "English":
-            current_language = "eng"
-        elif selected_language == "Hindi":
-            current_language = "hin"
 
-    def on_mode_select(self, event):
-        global mode
-        selected_mode = self.mode_dropdown.GetStringSelection()
-        if selected_mode == "Cursor Reading":
-            mode = 'cursor'
-        elif selected_mode == "Summarization":
-            mode = 'summary'
+
+
+-------x----------------------x---------------------x-------------------------x-----------------------x--------------------x-----------------------
+
+
+
+import wx
+import threading
+import pytesseract
+import pyttsx3
+import pyautogui
+import time
+import sys
+from gui import EchoEYESFrame
+
+# Initialize text-to-speech engine
+engine = pyttsx3.init()
+voices = engine.getProperty("voices")
+volume = 0.5  # Default volume
+rate = 200  # Default speech rate (words per minute)
+current_voice = voices[0]  # Default voice
+current_language = "eng"  # Default language (English)
+
+# Store the previous cursor position
+previous_cursor_position = pyautogui.position()
+
+# Variable to control the main loop
+running = False
+
+# Mode selection: 'cursor' for cursor reading, 'summary' for summarization
+mode = 'cursor'
 
 
 def take_screenshot():
@@ -291,7 +268,54 @@ def stop_main_loop():
     running = False
 
 
+def on_launch(event):
+    start_main_loop()
+
+
+def on_quit(event):
+    stop_main_loop()
+    wx.CallAfter(frame.Close)
+
+
+def on_volume_change(event):
+    global volume
+    volume = frame.volume_slider.GetValue() / 100
+
+
+def on_rate_change(event):
+    global rate
+    rate = frame.rate_slider.GetValue()
+
+
+def on_voice_select(event):
+    global current_voice
+    selected_voice_name = frame.voice_dropdown.GetValue()
+    for voice in voices:
+        if voice.name == selected_voice_name:
+            current_voice = voice
+            break
+
+
+def on_language_select(event):
+    global current_language
+    selected_language = frame.language_dropdown.GetStringSelection()
+    if selected_language == "English":
+        current_language = "eng"
+    elif selected_language == "Hindi":
+        current_language = "hin"
+
+
+def on_mode_select(event):
+    global mode
+    selected_mode = frame.mode_dropdown.GetStringSelection()
+    if selected_mode == "Cursor Reading":
+        mode = 'cursor'
+    elif selected_mode == "Summarization":
+        mode = 'summary'
+
+
 app = wx.App()
-frame = MyFrame(None, -1, "EchoEYES")
+frame = EchoEYESFrame(None, -1, "EchoEYES", on_launch, on_quit, on_volume_change, on_rate_change, on_voice_select, on_language_select, on_mode_select)
 frame.Show()
 app.MainLoop()
+
