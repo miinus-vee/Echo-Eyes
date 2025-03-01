@@ -638,5 +638,20 @@ frame.Show()
 app.MainLoop()
 
 
+------------------------------------------------------------5th---------------
+ERROR:
+Detected objects: []
+Detected objects: []
+('', <PIL.Image.Image image mode=RGB size=250x250 at 0x1F3F3000E80>)
+Detected objects: [(77, 0.5473041), (85, 0.5299681)]
+('ensorflow/core/pla\nce-critical operat\ntions: AVX2 AVX512\n\ne=RGB size=250x250\n', <PIL.Image.Image image mode=RGB size=250x250 at 0x1F3F63ABF40>)
+Detected objects: [(53, 0.71463513), (53, 0.6899659), (53, 0.68366593)]
+('', <PIL.Image.Image image mode=RGB size=250x250 at 0x1F3F2FDFBB0>)
+Detected objects: [(53, 0.75275195)]
+('G Collins Dictionary\n\nAPPLE definition and mea\n', <PIL.Image.Image image mode=RGB size=250x250 at 0x1F3F63ABF40>)
+Detected objects: []
+('Select Mode!\n\nLaunch\n', <PIL.Image.Image image mode=RGB size=250x250 at 0x1F3F2FDFCA0>)
+Detected objects: []
+1.
 
 
